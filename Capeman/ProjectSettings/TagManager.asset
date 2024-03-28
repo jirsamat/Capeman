@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collectible
+  - Trap
+  - HitReg
   layers:
   - Default
   - TransparentFX
@@ -12,9 +14,9 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Enemies
+  - HitReg
   - 
   - 
   - 
