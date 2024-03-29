@@ -12,9 +12,13 @@ public class EnemyScript : MonoBehaviour
     public float CurrentHealth;
     public float KnockBackStun;
 
+    public GameObject collectibleParent;
+    public GameObject[] itemDrops;
+
     void Start()
     {
         CurrentHealth = MaxHealth;
+        collectibleParent = GameObject.FindGameObjectWithTag("Collectible");
     }
     // Update is called once per frame
     void Update()
@@ -64,8 +68,17 @@ public class EnemyScript : MonoBehaviour
     //death function
     void Die()
     {
+        //spawns a drop
+        if (Random.Range(1, 4) == 1)
+        {
+            GameObject newDrop = Instantiate(itemDrops[0], gameObject.transform.position, Quaternion.identity);
+            newDrop.transform.parent = collectibleParent.transform;
+        }
+        else
+            Debug.Log("Didnt spawn");
         //plays the death animation, at the end there is an event marker that calls the deleteEnemy function
         animator.SetBool("isDead", true);
+        
 
         //disables all its movement
         GetComponent<CircleCollider2D>().enabled = false;
@@ -76,6 +89,7 @@ public class EnemyScript : MonoBehaviour
     //called at the end of the death animation, deletes the game object
     public void DeleteEnemy()
     {
+      
         Destroy(gameObject);
     }
 }

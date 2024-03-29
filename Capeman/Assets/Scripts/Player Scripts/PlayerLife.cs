@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
     [SerializeField] Rigidbody2D myrigidbody2D;
+    [SerializeField] private Text HPText;
 
     public int MaxHealth = 10;
     public int CurrentHealth;
@@ -16,6 +18,7 @@ public class PlayerLife : MonoBehaviour
     void Start()
     {
         CurrentHealth = MaxHealth;
+        UpdateHP();
     }
     private void Update()
     {
@@ -34,6 +37,7 @@ public class PlayerLife : MonoBehaviour
             //myrigidbody2D.AddForce((myrigidbody2D.transform.position-collision.transform.position)*Knockback);
                  
             CurrentHealth--;
+            UpdateHP();
             if (CurrentHealth == 0)
             {
                 Destroy(collision.gameObject.GetComponent<BoxCollider2D>());
@@ -48,11 +52,20 @@ public class PlayerLife : MonoBehaviour
     {
         isDead = true;
         gameObject.GetComponent<PlayerMovement>().enabled = false;
+        gameObject.GetComponent<PlayerCombat>().enabled = false;
+        if (gameObject.GetComponent<PlayerMovement>().isGrounded())
+        {
+            gameObject.GetComponent<PlayerMovement>().myRigidBody.bodyType = RigidbodyType2D.Static;
+        }
 
         animator.SetBool("isDead", true);
     }
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void UpdateHP()
+    {
+        HPText.text = "HP: " + CurrentHealth;
     }
 }

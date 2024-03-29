@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //general movement variables
     private float dirX = 0f;
-    [SerializeField] Rigidbody2D myRigidBody;
+    public Rigidbody2D myRigidBody;
     [SerializeField] private float jumpForce = 4;
     [SerializeField] private float moveSpeed = 5;
 
@@ -39,25 +39,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //hang time - for smoother jumps - adds a timer in which player can jump even if in the air
-        if (isGrounded() && myRigidBody.velocity.y < 0.05f)
-        {
-            hangCount = hangTime;
-        }
-        else
-        {
-            hangCount -= Time.deltaTime;
-        }
-
-        //jump buffer - for smoother jumps - adds a timer so imput counts longer
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            bufferCount = jumpBuffer;
-        }
-        else
-        {
-            bufferCount -= Time.deltaTime;
-        }
         //horizontal movement
         dirX = (Input.GetAxisRaw("Horizontal"));
         isSprinting();
@@ -70,10 +51,29 @@ public class PlayerMovement : MonoBehaviour
             myRigidBody.velocity = new Vector2(dirX * moveSpeed, myRigidBody.velocity.y);
         }
 
+        //hang time - for smoother jumps - adds a timer in which player can jump even if in the air
+        if (isGrounded() && myRigidBody.velocity.y < 0.05f)
+        {
+            hangCount = hangTime;
+        }
+        else
+        {
+            hangCount -= Time.deltaTime;
+        }
+        //jump buffer - for smoother jumps - adds a timer so imput counts longer
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            bufferCount = jumpBuffer;
+            Debug.Log("BufferActive");
+        }
+        else
+        {
+            bufferCount -= Time.deltaTime;
+        }
         //jump - enhanced by buffer and hang
         if (bufferCount > 0 && hangCount > 0)
         {
-            myRigidBody.velocity += Vector2.up * jumpForce;
+            myRigidBody.velocity = Vector2.up * jumpForce;
             bufferCount = 0f;
             hangCount = 0f;
         }

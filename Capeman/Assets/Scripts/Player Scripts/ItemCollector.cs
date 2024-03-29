@@ -5,11 +5,35 @@ using UnityEngine.UI;
 
 public class ItemCollector : MonoBehaviour
 {
-    public LayerMask playerLayerMask;
-    public LayerMask attackLayerMask;
+    public LayerMask collectibleLayer; 
+    public Transform collector;
+    public float CollectRange = 1.6f;
 
     private int collected = 0;
     [SerializeField] private Text collectedText;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Collider2D collectible = Physics2D.OverlapCircle(collector.position, CollectRange, collectibleLayer);
+
+        if (collectible != null)
+        {
+            Destroy(collectible.gameObject);
+            if (collectible.CompareTag("HealthDrop"))
+            {
+                gameObject.GetComponent<PlayerLife>().CurrentHealth++;
+                gameObject.GetComponent<PlayerLife>().UpdateHP();
+            }
+            collected++;
+        }
+
+        UpdateCollectedText();
+    }
+
+    private void UpdateCollectedText()
+    {
+        collectedText.text = "Collected " + collected;
+    }
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Collectible"))
@@ -20,18 +44,4 @@ public class ItemCollector : MonoBehaviour
         }
     }
     */
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (playerLayerMask == (playerLayerMask | (1 << collision.gameObject.layer)))
-        {
-            // This collider belongs to the player, so collect the item
-            Destroy(collision.gameObject);
-            collected++;
-            collectedText.text = "Collected " + collected;
-        }
-        else if (attackLayerMask == (attackLayerMask | (1 << collision.gameObject.layer)))
-        {
-            // This collider belongs to an attack, do not collect the item
-        }
-    }
 }

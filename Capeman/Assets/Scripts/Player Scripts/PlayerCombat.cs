@@ -38,28 +38,7 @@ public class PlayerCombat : MonoBehaviour
             }
         }
     }
-    //the old attack 
-    /*void Attack()
-    {
-        //plays the attack animation
-        animator.SetTrigger("Attack");
-
-        //detects enemies in range
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
-
-        //Damages them
-        foreach(Collider2D enemy in hitEnemies)
-        {
-            enemy.GetComponent<EnemyScript>().TakeDamage(damage);
-        }
-
-    } */
-    /*private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null) return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }*/
-    //the new attack, hit reg is called 4 times during the attack animation, resulting in accurate and better feeling combat
+   
     public void HitReg()
     {
         //sets up a filter for filtering enemies that should be hit
