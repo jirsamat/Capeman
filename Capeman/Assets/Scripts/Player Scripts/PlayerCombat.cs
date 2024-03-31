@@ -7,7 +7,7 @@ public class PlayerCombat : MonoBehaviour
     public Animator animator;
     //public Transform attackPoint;
     //public float attackRange = 0.5f;
-    public float damage = 1;
+    public int damage = 1;
     public float attackRate = 2f;
     public float knockBack = 2f;
     public float knockBackdur = 2f;

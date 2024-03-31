@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class TimeAlive : MonoBehaviour
 {
-    private int Seconds = 0;
-    private int Minutes = 0;
+    public int Seconds = 0;
+    public int Minutes = 0;
     [SerializeField] private Text timeAliveText;
     // Start is called before the first frame update
     void Start()

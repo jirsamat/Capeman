@@ -64,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             bufferCount = jumpBuffer;
-            Debug.Log("BufferActive");
         }
         else
         {

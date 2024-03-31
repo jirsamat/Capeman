@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
+    
     [SerializeField] Transform target;
     private Vector3 velocity = Vector3.zero;
     public Vector3 CameraVector = new Vector3(0, 5, -10);

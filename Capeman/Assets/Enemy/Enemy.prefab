@@ -52,13 +52,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 5582104127516511141}
   rb: {fileID: 5582104127340158164}
+  circleCollider: {fileID: 5582104127340158166}
   aiPath: {fileID: 5582104127340158152}
   MaxHealth: 6
   CurrentHealth: 0
   KnockBackStun: 0
   collectibleParent: {fileID: 0}
   itemDrops:
-  - {fileID: 7803758543556246663, guid: 2eac8d46744dda34981c2233671c3295, type: 3}
+  - {fileID: 3240846212081366358, guid: 88be5c061aaf9be429d82847d1350d8e, type: 3}
+  - {fileID: 1304883078715412373, guid: 79ec4e4a54108794caf46125608edea2, type: 3}
+  - {fileID: 2620013158373927714, guid: 378b17fa0a707c24eb28a7738362487e, type: 3}
+  - {fileID: 8168341879318979413, guid: 133b7d5bebabf4247b69b5d9b0c0edac, type: 3}
+  - {fileID: 1954801520802274805, guid: 219b5625360d6284e8ac11d75905c8a9, type: 3}
+  - {fileID: 8797026275621345284, guid: ea140d404a714634783eb5db4c9003cd, type: 3}
 --- !u!58 &5582104127340158166
 CircleCollider2D:
   m_ObjectHideFlags: 0

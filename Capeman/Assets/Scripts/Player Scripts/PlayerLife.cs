@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
+    public GameObject DeathScreen;
+    public GameObject EnemySpawner;
+    public GameObject TimeAlive;
+
     [SerializeField] Rigidbody2D myrigidbody2D;
     [SerializeField] private Text HPText;
 
@@ -22,7 +26,7 @@ public class PlayerLife : MonoBehaviour
     }
     private void Update()
     {
-        if(CurrentHealth==0)
+        if (CurrentHealth == 0)
         {
             Die();
         }
@@ -35,7 +39,7 @@ public class PlayerLife : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             //myrigidbody2D.AddForce((myrigidbody2D.transform.position-collision.transform.position)*Knockback);
-                 
+
             CurrentHealth--;
             UpdateHP();
             if (CurrentHealth == 0)
@@ -44,7 +48,7 @@ public class PlayerLife : MonoBehaviour
                 Die();
             }
             else
-            myrigidbody2D.AddForce((transform.position - collision.transform.position).normalized * Knockback);
+                myrigidbody2D.AddForce((transform.position - collision.transform.position).normalized * Knockback);
         }
     }
     //Death function
@@ -62,10 +66,24 @@ public class PlayerLife : MonoBehaviour
     }
     private void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        DeathScreen.SetActive(true);
+        EnemySpawner.SetActive(false);
+        TimeAlive.GetComponent<TimeAlive>().StopAllCoroutines();
+        //SceneManager.LoadScene("DeathScreen");
+    }
+    public void Heal(int HP)
+    {
+        int remainingHP = HP;
+        while (remainingHP > 0 && CurrentHealth < MaxHealth)
+        {
+            CurrentHealth++;
+            remainingHP--;
+        }
+        UpdateHP();
     }
     public void UpdateHP()
     {
-        HPText.text = "HP: " + CurrentHealth;
+        HPText.text = "HP: " + CurrentHealth + "/" + MaxHealth;
     }
 }
+
