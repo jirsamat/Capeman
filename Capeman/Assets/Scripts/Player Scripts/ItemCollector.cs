@@ -9,6 +9,7 @@ public class ItemCollector : MonoBehaviour
     public Transform collector;
     public float CollectRange = 1.6f;
 
+    //vars. for the stats text
     private float SpeedMult;
     private float KBMult;
     private int DMGMult;

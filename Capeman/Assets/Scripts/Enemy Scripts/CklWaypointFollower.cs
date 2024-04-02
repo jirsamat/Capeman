@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Cyclic waypoint follower
+//Cyclic waypoint follower - not used
 public class CklWaypointFollower : MonoBehaviour
 {
     //creates a list of waypoints for scalability

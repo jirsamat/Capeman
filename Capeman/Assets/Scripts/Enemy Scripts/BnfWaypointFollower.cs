@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Back and forth waypoint follower
+//Back and forth waypoint follower - not used
 public class BnfWaypointFollower : MonoBehaviour
 {
     //creates a list of waypoints for scalability

@@ -31,11 +31,6 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer mySprite;
     public Animator myAnimator;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -45,6 +40,11 @@ public class PlayerMovement : MonoBehaviour
         if (sprint == true)
         {
             myRigidBody.velocity = new Vector2(dirX * sprintSpeed, myRigidBody.velocity.y);
+        }
+        //if player is knocked, the velocity inputs are taken from the knockback function
+        else if (gameObject.GetComponent<PlayerLife>().isKnocked)
+        {
+            return;
         }
         else
         {
@@ -81,9 +81,7 @@ public class PlayerMovement : MonoBehaviour
             myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, myRigidBody.velocity.y * 0.5f);
         }
 
-        //animation stuff
-
-
+        //updates animation
         UpdateAnimationState();
     }
     //finds out if player collider overlaps with the ground - player is grounded
@@ -114,13 +112,13 @@ public class PlayerMovement : MonoBehaviour
         {
             myAnimator.SetBool("isGrounded", false);
         }
-        if (dirX > 0f)
+        if (myRigidBody.velocity.x > 0f)
         {
             myAnimator.SetBool("isRunning", true);
             mySprite.flipX = false;
             gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
-        else if (dirX < 0f)
+        else if (myRigidBody.velocity.x < 0f)
         {
             myAnimator.SetBool("isRunning", true);
             gameObject.transform.localScale = new Vector3(-1, 1, 1);

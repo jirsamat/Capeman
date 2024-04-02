@@ -13,7 +13,7 @@ public class TimeAlive : MonoBehaviour
     {
         StartCoroutine(count());
     }
-
+    //counts seconds from start of the game, then converts them to minutes, then updates the text field.
     IEnumerator count()
     {
         while (true)

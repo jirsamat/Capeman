@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public Animator animator;
-    //public Transform attackPoint;
-    //public float attackRange = 0.5f;
+
+    //general variables for attacks
     public int damage = 1;
     public float attackRate = 2f;
     public float knockBack = 2f;
@@ -38,7 +38,7 @@ public class PlayerCombat : MonoBehaviour
             }
         }
     }
-   
+    //called on four frames in the attack anim.
     public void HitReg()
     {
         //sets up a filter for filtering enemies that should be hit
@@ -61,7 +61,7 @@ public class PlayerCombat : MonoBehaviour
         colIndex++;
         if (colIndex >= colliders.Length)
             colIndex = 0;
-        // 
+        //clears the list of enemies
         hitEnemies.Clear();
     }
 }

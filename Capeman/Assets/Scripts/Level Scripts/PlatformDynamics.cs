@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformDynamics : MonoBehaviour
+    //isnt used, meant for moving platforms.
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {

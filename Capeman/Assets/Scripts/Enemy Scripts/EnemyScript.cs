@@ -18,8 +18,11 @@ public class EnemyScript : MonoBehaviour
 
     void Start()
     {
+        //scales the health with game duration
         TimeAlive = GameObject.FindGameObjectWithTag("TimeAlive");
         CurrentHealth = MaxHealth * (TimeAlive.GetComponent<TimeAlive>().Minutes + 1);
+
+        //sets up the parent for drops. For better organization.
         collectibleParent = GameObject.FindGameObjectWithTag("Collectible");
     }
     // Update is called once per frame

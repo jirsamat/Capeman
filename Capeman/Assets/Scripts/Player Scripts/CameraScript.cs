@@ -9,16 +9,13 @@ public class CameraScript : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Vector3 CameraVector = new Vector3(0, 5, -20);
     public float smoothTime = 0.5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
+        //targets the player
         Vector3 targetPosition = target.TransformPoint(CameraVector);
+        //smoothens the following of the player
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
 }

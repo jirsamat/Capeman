@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+//isnt used
 public class EnemyAI : MonoBehaviour
 {
     public GameObject target;

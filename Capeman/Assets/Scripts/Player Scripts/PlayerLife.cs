@@ -15,39 +15,47 @@ public class PlayerLife : MonoBehaviour
 
     public int MaxHealth = 10;
     public int CurrentHealth;
+
+    //used for player knockback
     public float Knockback = 5f;
+    public bool isKnocked = false;
 
     private bool isDead = false;
 
     public Animator animator;
     void Start()
     {
+        //sets up the HP
         CurrentHealth = MaxHealth;
         UpdateHP();
     }
     private void Update()
     {
+        //checks if player dies
         if (CurrentHealth == 0)
         {
             Die();
         }
     }
-    //Detects collision with traps
+    //Detects collision with traps - anything that damages the player -> enemies are also counted as traps
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //after player dies the game is still active, this negates any enemy interaction with the player - safety measure
         if (isDead) return;
 
         if (collision.gameObject.CompareTag("Trap"))
         {
-            //myrigidbody2D.AddForce((myrigidbody2D.transform.position-collision.transform.position)*Knockback);
-
+            //updated HP
             CurrentHealth--;
             UpdateHP();
+
+            //checks if the player dies
             if (CurrentHealth == 0)
             {
                 Destroy(collision.gameObject.GetComponent<BoxCollider2D>());
                 Die();
             }
+            //if not - applies knockback
             else
             {
                 ApplyKnockBack(collision);
@@ -58,6 +66,7 @@ public class PlayerLife : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        //disables player input, when the body hits the floor, freezes its position
         gameObject.GetComponent<PlayerMovement>().enabled = false;
         gameObject.GetComponent<PlayerCombat>().enabled = false;
         if (gameObject.GetComponent<PlayerMovement>().isGrounded())
@@ -73,7 +82,6 @@ public class PlayerLife : MonoBehaviour
         DeathScreen.SetActive(true);
         EnemySpawner.SetActive(false);
         TimeAlive.GetComponent<TimeAlive>().StopAllCoroutines();
-        //SceneManager.LoadScene("DeathScreen");
     }
     //heals the player a specified amount of hp
     public void Heal(int HP)
@@ -94,17 +102,28 @@ public class PlayerLife : MonoBehaviour
     //knock back function for the player
     public void ApplyKnockBack(Collision2D collision)
     {
+        isKnocked = true;
+
+        //determines the direction of the knockback
         Vector2 direction = (transform.position - collision.transform.position).normalized;
+        //plays the knock back animation
         animator.SetTrigger("KnockBack");
+
+        //resets players velocity and then apllies the knockback
         myrigidbody2D.velocity = Vector2.zero;
         if (direction.x > 0)
         {
-            myrigidbody2D.velocity = new Vector2(Knockback*20, Knockback);
+            myrigidbody2D.velocity = new Vector2(Knockback, Knockback);
         }
         else
         {
-            myrigidbody2D.velocity = new Vector2(-Knockback*20, Knockback);
+            myrigidbody2D.velocity = new Vector2(-Knockback, Knockback);
         }
+    }
+    //removes the knockback stun - on knockback animation
+    public void StopKnockBack()
+    {
+        isKnocked = false;
     }
 }
 
