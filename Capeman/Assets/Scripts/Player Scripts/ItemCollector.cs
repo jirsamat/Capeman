@@ -65,7 +65,7 @@ public class ItemCollector : MonoBehaviour
             if (collectible.CompareTag("AttackSpeedDrop"))
             {
                 gameObject.GetComponent<PlayerCombat>().attackRate += .2f;
-                ATKMult++;
+                ATKMult+=.2f;
             }
         }
 
