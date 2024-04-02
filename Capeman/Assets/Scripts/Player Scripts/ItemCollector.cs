@@ -17,6 +17,7 @@ public class ItemCollector : MonoBehaviour
 
     private void Start()
     {
+        //gets the starting values of the stats
         SpeedMult = gameObject.GetComponent<PlayerMovement>().sprintSpeed;
         KBMult = gameObject.GetComponent<PlayerCombat>().knockBack;
         DMGMult = gameObject.GetComponent<PlayerCombat>().damage;
@@ -24,8 +25,10 @@ public class ItemCollector : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //checks for collectibles in range
         Collider2D collectible = Physics2D.OverlapCircle(collector.position, CollectRange, collectibleLayer);
 
+        //checks for the type of the collectible, destroys it and applies the appropriate effect
         if (collectible != null)
         {
             Destroy(collectible.gameObject);
@@ -44,7 +47,7 @@ public class ItemCollector : MonoBehaviour
                 if (gameObject.GetComponent<PlayerMovement>().sprintSpeed <20)
                 {
                     gameObject.GetComponent<PlayerMovement>().sprintSpeed += .1f;
-                    SpeedMult++;
+                    SpeedMult+= .1f;
                 }
             }
             if (collectible.CompareTag("KnockBackDrop"))
@@ -67,19 +70,9 @@ public class ItemCollector : MonoBehaviour
 
         UpdateCollectedText();
     }
-
+    //updates the current stat values, rounds up the floats
     private void UpdateCollectedText()
     {
-        collectedText.text = "Speed: " + SpeedMult + "\n" + "Damage: " + DMGMult + "\n" + "Knock Back: " + KBMult + "\n" +  "Attack Speed: " + ATKMult;
+        collectedText.text = "Speed: " + Mathf.Ceil(SpeedMult) + "\n" + "Damage: " + DMGMult + "\n" + "Knock Back: " + Mathf.Ceil(KBMult) + "\n" +  "Attack Speed: " + Mathf.Ceil(ATKMult);
     }
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Collectible"))
-        {
-            Destroy(collision.gameObject);
-            collected++;
-            collectedText.text = "Collected " + collected;
-        }
-    }
-    */
 }

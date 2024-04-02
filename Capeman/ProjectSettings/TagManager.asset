@@ -13,6 +13,7 @@ TagManager:
   - AttackSpeedDrop
   - KnockBackDrop
   - MaxHealthDrop
+  - TimeAlive
   layers:
   - Default
   - TransparentFX

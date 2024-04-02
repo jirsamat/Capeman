@@ -53,8 +53,9 @@ MonoBehaviour:
   animator: {fileID: 5582104127516511141}
   rb: {fileID: 5582104127340158164}
   circleCollider: {fileID: 5582104127340158166}
+  TimeAlive: {fileID: 0}
   aiPath: {fileID: 5582104127340158152}
-  MaxHealth: 6
+  MaxHealth: 3
   CurrentHealth: 0
   KnockBackStun: 0
   collectibleParent: {fileID: 0}
