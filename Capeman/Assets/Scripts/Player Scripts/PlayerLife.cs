@@ -16,6 +16,7 @@ public class PlayerLife : MonoBehaviour
     public int MaxHealth = 10;
     public int CurrentHealth;
     public float Knockback = 5f;
+
     private bool isDead = false;
 
     public Animator animator;
@@ -48,7 +49,9 @@ public class PlayerLife : MonoBehaviour
                 Die();
             }
             else
-                myrigidbody2D.AddForce((transform.position - collision.transform.position).normalized * Knockback);
+            {
+                ApplyKnockBack(collision);
+            }
         }
     }
     //Death function
@@ -64,6 +67,7 @@ public class PlayerLife : MonoBehaviour
 
         animator.SetBool("isDead", true);
     }
+    //restarts the level. Is called on the deathscreen menu button PlayAgain
     private void RestartLevel()
     {
         DeathScreen.SetActive(true);
@@ -71,6 +75,7 @@ public class PlayerLife : MonoBehaviour
         TimeAlive.GetComponent<TimeAlive>().StopAllCoroutines();
         //SceneManager.LoadScene("DeathScreen");
     }
+    //heals the player a specified amount of hp
     public void Heal(int HP)
     {
         int remainingHP = HP;
@@ -81,9 +86,25 @@ public class PlayerLife : MonoBehaviour
         }
         UpdateHP();
     }
+    //updates the HP text. Called with Heal, but also with Health Increase
     public void UpdateHP()
     {
         HPText.text = "HP: " + CurrentHealth + "/" + MaxHealth;
+    }
+    //knock back function for the player
+    public void ApplyKnockBack(Collision2D collision)
+    {
+        Vector2 direction = (transform.position - collision.transform.position).normalized;
+        animator.SetTrigger("KnockBack");
+        myrigidbody2D.velocity = Vector2.zero;
+        if (direction.x > 0)
+        {
+            myrigidbody2D.velocity = new Vector2(Knockback*20, Knockback);
+        }
+        else
+        {
+            myrigidbody2D.velocity = new Vector2(-Knockback*20, Knockback);
+        }
     }
 }
 
