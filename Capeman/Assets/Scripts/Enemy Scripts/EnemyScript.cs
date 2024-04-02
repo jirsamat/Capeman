@@ -86,7 +86,7 @@ public class EnemyScript : MonoBehaviour
         //spawns a drop
         if (Random.Range(1, 4) == 1)
         {
-            GameObject newDrop = Instantiate(itemDrops[Random.Range(0,5)], gameObject.transform.position, Quaternion.identity);
+            GameObject newDrop = Instantiate(PickADrop(), gameObject.transform.position, Quaternion.identity);
             newDrop.transform.parent = collectibleParent.transform;
         }
         else
@@ -106,5 +106,14 @@ public class EnemyScript : MonoBehaviour
     {
       
         Destroy(gameObject);
+    }
+    public GameObject PickADrop()
+    {
+        if (Random.Range(0, 2) > 0)
+        {
+            return itemDrops[0];
+        }
+        else
+            return itemDrops[Random.Range(1, 5)];
     }
 }

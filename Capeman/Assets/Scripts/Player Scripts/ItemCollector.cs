@@ -51,7 +51,7 @@ public class ItemCollector : MonoBehaviour
             {
                 gameObject.GetComponent<PlayerCombat>().knockBack += .1f;
                 gameObject.GetComponent<PlayerCombat>().knockBackdur += .1f;
-                KBMult += .2f;
+                KBMult += .1f;
             }
             if (collectible.CompareTag("DamageDrop"))
             {
