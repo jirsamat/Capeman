@@ -74,6 +74,6 @@ public class ItemCollector : MonoBehaviour
     //updates the current stat values, rounds up the floats
     private void UpdateCollectedText()
     {
-        collectedText.text = "Speed: " + Mathf.Ceil(SpeedMult) + "\n" + "Damage: " + DMGMult + "\n" + "Knock Back: " + Mathf.Ceil(KBMult) + "\n" +  "Attack Speed: " + Mathf.Ceil(ATKMult);
+        collectedText.text = "Speed: " + Mathf.Round(SpeedMult*10)*.1f + "\n" + "Damage: " + DMGMult + "\n" + "Knock Back: " + Mathf.Round(KBMult * 10) * .1f + "\n" +  "Attack Speed: " + Mathf.Round(ATKMult * 10) * .1f;
     }
 }
